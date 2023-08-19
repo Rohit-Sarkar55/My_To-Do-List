@@ -1,0 +1,32 @@
+
+<%- include("header") %>
+   
+    <div class="box" id="heading">
+        <h1> <%= NameOfDay  %> </h1>
+    </div>
+        
+    <div class="box">
+
+        <% ntask.forEach((item)=>{ %>
+
+            <form action="/delete" method="post">
+
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%=item.id%>" onchange="this.form.submit()" >
+                
+                    <p> <%= item.name %> </p>
+                </div>
+                <input type="hidden" name="listName" value="<%= NameOfDay %>"> 
+            </form>
+        <% }) %>
+        
+        <form class="item" action="/" method="post">
+            <input type="text" name="newitem" placeholder="Enter New Task" autocomplete="off">
+            <button type="submit" name="list" value="<%= NameOfDay %>">+</button>
+        </form>
+
+    </div>
+
+<%- include("footer") %>
+
+    
