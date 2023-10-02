@@ -18,7 +18,7 @@ mongoose.connect("mongodb+srv://tyfoon:tyfoon_123@cluster0.ikbgoe1.mongodb.net/t
 const itemsSchema = new mongoose.Schema({
     name : {
         type: String,
-        required : true
+        // required : true
     }
 })
 
@@ -110,14 +110,15 @@ app.post("/" , function(req , res){
 
     if(listName === date.getDate()){
         console.log("Here");
-        newTask.save();
-        res.redirect("/");
+        newTask.save().then(
+            res.redirect("/")
+        )
     }
     else{
         List.findOne({name:listName}).then((list)=>{
             list.items.push(newTask)
-            list.save()
-            res.redirect("/" + listName)
+            list.save().then(res.redirect("/"))
+            
         }).catch(err=>{
             console.log(err);
         })
